@@ -18,7 +18,7 @@ pip install pyqt5 pyserial
 ```
 
 ## 使用说明
-1. 在serialReader中设置好读取信号的串口，确保程序内的串口与设备所连接的串口保持一致
+1. 在SerialReader中设置好读取信号的串口，确保程序内的串口与设备所连接的串口保持一致
 
 2. 运行 read_serial_data.py 以直接从串口读取数据。
 
