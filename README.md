@@ -18,11 +18,13 @@ pip install pyqt5 pyserial
 ```
 
 ## 使用说明
-1.运行 read_serial_data.py 以直接从串口读取数据。
+1. 在SerialReader中设置好读取信号的串口，确保程序内的串口与设备所连接的串口保持一致。
 
-2.在 AttitudeSensor.py 中，SerialReader 类提供了读取和解析数据的功能。你可以在此基础上进行扩展或集成到你的应用程序中。
+2. 运行 read_serial_data.py 以直接从串口读取数据。
 
-3.若要查看 PyQt GUI 示例，请运行 MainWindow。
+3. 在 AttitudeSensor.py 中，SerialReader 类提供了读取和解析数据的功能。你可以在此基础上进行扩展或集成到你的应用程序中。
+
+4. 若要查看 PyQt GUI 示例，请运行 MainWindow。
 
 ## 贡献
 欢迎对本项目进行贡献！如果你有任何改进意见或功能请求，请提交 Pull Request 或开 Issue。
