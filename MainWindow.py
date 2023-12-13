@@ -7,6 +7,9 @@ from Wit import WitDataParser
 from DataHandlerInterface import DataProcessor
 
 class MainWindow(QMainWindow):
+    """
+    主窗口类，负责初始化 UI 和数据处理线程。
+    """
     update_text_signal = pyqtSignal(str)
 
     def __init__(self):
@@ -15,6 +18,9 @@ class MainWindow(QMainWindow):
         self.setup_processing_thread()
 
     def init_ui(self):
+        """
+        初始化用户界面。
+        """
         self.text_edit = QTextEdit(self)
         layout = QVBoxLayout()
         layout.addWidget(self.text_edit)
@@ -24,6 +30,9 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Data Processing Application")
 
     def setup_processing_thread(self):
+        """
+        设置并启动数据处理线程。
+        """
         self.data_queue = Queue()
         self.data_processor = DataProcessor()
         self.data_thread = DataProcessingThread(self.data_queue, self.data_processor, self.update_text_signal)
@@ -31,14 +40,23 @@ class MainWindow(QMainWindow):
         self.data_thread.start()
 
     def update_text_edit(self, text):
+        """
+        更新文本编辑框的内容。
+        """
         self.text_edit.append(text)
 
     def closeEvent(self, event):
+        """
+        处理窗口关闭事件，确保线程和资源被适当清理。
+        """
         self.data_queue.put(None)
         self.data_thread.wait()
         super().closeEvent(event)
 
 class DataProcessingThread(QThread):
+    """
+    数据处理线程类，负责从数据队列中读取并处理数据。
+    """
     def __init__(self, data_queue, data_processor, update_signal):
         super().__init__()
         self.data_queue = data_queue
@@ -46,6 +64,9 @@ class DataProcessingThread(QThread):
         self.update_signal = update_signal
 
     def run(self):
+        """
+        线程运行函数，从队列中读取数据并处理。
+        """
         while True:
             raw_data = self.data_queue.get()
             if raw_data is None:
@@ -56,6 +77,9 @@ class DataProcessingThread(QThread):
                 self.update_signal.emit(str(processed_data))
 
 def main():
+    """
+    应用程序的主入口点。
+    """
     app = QApplication(sys.argv)
     main_window = MainWindow()
     main_window.show()
